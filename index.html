@@ -1,5 +1,5 @@
 <!DOCTYPE html >
-<html lang="en" ng-app="codecraft" >
+<html lang="en" ng-app="search-sort" >
 <head >
 	<title >Lists Of Things</title >
 	<link href="./libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" >
@@ -17,8 +17,90 @@
 	</div >
 </nav >
 
-<div class="container main-content">
+<div class="container main-content" ng-controller="PersonsController">
+
+	<div class="row" >
+		<div class="col-md-8" >
+			<table class="table table-bordered">
+
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Birthday</th>
+		</tr>
+
+<tr ng-repeat="person in persons"
+		ng-style="{
+		'background-color': $index == selectedIndex ? 'lightblue' : ''
+		 }"
+		 ng-click="selectPerson(person, $index)">
+
+			<td>{{ $index }}</td>
+			<td>{{ person.name }}</td>
+			<td>{{ person.email }}</td>
+			<td>{{ person.birthdate | date:"longDate" }}</td>
+		</tr>
+
+	</table>
+
+		</div>
+		<div class="col-md-4" >	<!-- right hadn column 	 -->
+			<div class="panel panel-default">
+					<div class="panel-heading" > Details</div>
+					<div class="panel-body" >
+					<dl >
+						<dt >Name</dt >
+						<dd >{{selectedPerson.name}}</dd >
+						<dt >Email</dt >
+						<dd >{{selectedPerson.email}}</dd >
+						<dt >Birthday</dt >
+						<dd >{{selectedPerson.birthdate | date:"longDate"}}</dd >
+						<dt >Phonenumber</dt >
+						<dd >{{selectedPerson.phonenumber}}</dd >
+						<dt >Address</dt >
+						<dd >{{selectedPerson.address}}</dd >
+						<dt >City</dt >
+						<dd >{{selectedPerson.city}}</dd >
+						<dt >Country</dt >
+						<dd >{{selectedPerson.country}}</dd >
+					</dl >		
+					</div>	
+					</div>
+			</div>
+		</div>
+	</div>
+
+	<table class="table table-bordered">
+
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Birthday</th>
+		</tr>
+
+<!-- ng style here changed so that only selected row is colored light blue
+in order to do that we need a ternary operator (if and else statement)
+to make this work .  -->
+<tr ng-repeat="person in persons"
+		ng-style="{
+		'background-color': $index == selectedIndex ? 'lightblue' : ''
+		 }"
+		 ng-click="selectPerson($index)">
+
+
+			<td>{{ $index }}</td>
+			<td>{{ person.name }}</td>
+			<td>{{ person.email }}</td>
+			<td>{{ person.birthdate | date:"longDate" }}</td>
+		</tr>
+
+	</table>
+
 </div >
+
+
 
 
 <script src="./libs/angular/angular.min.js" ></script >

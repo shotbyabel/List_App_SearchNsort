@@ -1,5 +1,19 @@
-// This is the sample data for this lesson
-var sample = [
+var app = angular.module('search-sort', []);
+
+app.controller('PersonsController', function ($scope) {
+
+//set it to null because 
+	$scope.selectedIndex = null
+	$scope.selectedPerson = null
+
+//ng-click funtion 
+	$scope.selectPerson = function (person, index) {
+		//when we select that person we will pass the index
+		$scope.selectedIndex = index;
+		$scope.selectedPerson = person;
+	};	
+
+	$scope.persons = [
 		{
 			"name": "Gregory Huffman",
 			"email": "Praesent@pedenec.net",
@@ -901,3 +915,4 @@ var sample = [
 			"country": "Taiwan"
 		}
 	]
+});
