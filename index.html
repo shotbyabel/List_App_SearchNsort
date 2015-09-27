@@ -18,6 +18,42 @@
 </nav >
 
 <div class="container main-content" ng-controller="PersonsController">
+	<div ></div>
+
+<!-- THE SEARCH FORM-->
+
+		<div class="row" >
+		<div class="col-md-12" >
+			<form class="form-inline well well-sm" >
+				<span class="glyphicon glyphicon-search" ></span >
+
+				<div class="form-group" >
+						<input type="text"
+						       class="form-control"
+						       id="name"
+						       ng-model="search"
+						       placeholder="Search name..."
+								/>
+				</div >
+
+				<span class="glyphicon glyphicon-sort-by-attributes"></span>
+<!-- 				FORM with Ascending and Descending values w ngMODEL -->
+					<div class="form-group" >
+
+						<select class="form-control"
+							ng-model="order">
+							<option value="name" >Name (ASC)</option>
+							<option value="name" >Name (DEC)</option>
+							<option value="email" >Email (ASC)</option>
+							<option value="email" >Email (DEC)</option>
+						</select>
+						</div>
+
+			</form >
+		</div >
+	</div >
+
+
 
 	<div class="row" >
 		<div class="col-md-8" >
@@ -25,14 +61,21 @@
 
 		<tr>
 			<th>#</th>
-			<th>Name</th>
-			<th>Email</th>
+			<th>Name
+				<span ng-click="order = 'name'" class="glyphicon glyphicon-menu-up"></span>
+					<span ng-click="order = '-name'" class="glyphicon glyphicon-menu-down"></span>
+			</th >
+			<th >Email
+				<span ng-click="order = 'email'" class="glyphicon glyphicon-menu-up"></span>
+				<span ng-click="order = '-email'" class="glyphicon glyphicon-menu-down"></span>
 			<th>Birthday</th>
 		</tr>
 
-<tr ng-repeat="person in persons"
+<!-- OUR FILTER and Ascending/Desending CODE -->
+
+<tr ng-repeat="person in filteredPersons = (persons | filter:sensitiveSearch | orderBy:order)"
 		ng-style="{
-		'background-color': $index == selectedIndex ? 'lightblue' : ''
+		'background-color': person.email == selectedPerson.email ? 'lightblue' : ''
 		 }"
 		 ng-click="selectPerson(person, $index)">
 
@@ -41,8 +84,17 @@
 			<td>{{ person.email }}</td>
 			<td>{{ person.birthdate | date:"longDate" }}</td>
 		</tr>
+<!-- LETTING USERS KNOW THEIR SEARCH WAS NOT FOUND -->
+				<tr ng-show="filteredPersons.length == 0">
+					<td colspan="4">
+						<div class="alert alert-info">
+							<p class="text-center">No results found for search term '{{ search }}'</p>
+						</div>
+					</td>
+				</tr>
 
-	</table>
+
+			</table >
 
 		</div>
 		<div class="col-md-4" >	<!-- right hadn column 	 -->
@@ -67,7 +119,11 @@
 					</dl >		
 					</div>	
 					</div>
+
+			<pre>{{ search }}</pre>
+
 			</div>
+		
 		</div>
 	</div>
 

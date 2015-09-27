@@ -2,16 +2,29 @@ var app = angular.module('search-sort', []);
 
 app.controller('PersonsController', function ($scope) {
 
+	$scope.seach = ""; //from our search form
+	$scope.order = "email"; //from the form ascending and descenging
 //set it to null because 
 	$scope.selectedIndex = null
 	$scope.selectedPerson = null
 
 //ng-click funtion 
-	$scope.selectPerson = function (person, index) {
-		//when we select that person we will pass the index
-		$scope.selectedIndex = index;
+	$scope.selectPerson = function (person) {
+		//when we select that person we will pass the 
 		$scope.selectedPerson = person;
 	};	
+
+	//function is gonna call for each obj a persons [] and it's just
+	//pass a individual object and expects to return true if match
+	$scope.sensitiveSearch = function(person) {
+		//if some1 enter a value in serch it will execute this block  
+		if ($scope.search) {
+			// if index o
+			return person.name.indexOf($scope.search) == 0 ||
+						 person.email.indexOf($scope.search) == 0;
+		}
+		return true;
+	};
 
 	$scope.persons = [
 		{
