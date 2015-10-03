@@ -4,3 +4,8 @@ body {
 .main-content {
   padding: 40px 15px;
 }
+
+.navbar-brand {
+
+  font-size: 2.0em;
+}
